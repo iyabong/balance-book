@@ -7,7 +7,7 @@ const handleClick = () => {
   return (
     <div style={{ padding: "2rem" }}>
       <h1>Balance Book 💳</h1>
-      <p>카드별 잔액과 출금 내역을 관리하는 앱</p>
+      <p>카드별 잔액과 출금 내역을 관리하는 앱 - 모바일에서 수정함.</p>
 
       <button onClick={handleClick}>출금하기</button>
     </div>
