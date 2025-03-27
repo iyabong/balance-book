@@ -19,7 +19,7 @@ const PaymentForm = ({ onConfirm, onCancel}) => {
                     onChange={(e) => setAmount(e.target.value)}
             />
             <button type="submit">확인</button>
-            <button type="button" onclick={onCancel}>취소</button>
+            <button type="button" onClick={onCancel}>취소</button>
         </form>
     );
 };
