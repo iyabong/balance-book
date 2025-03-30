@@ -12,7 +12,7 @@ const CardItem = ({ card, onPay}) => {
 
   return (
       <div className="card-item">
-      <h3>{card.name}</h3>
+      <h3>카드명: {card.name}</h3>
       <p>잔액: {card.balance}원</p>
       <button onClick={() => setShowForm(true)}>사용</button>
 
