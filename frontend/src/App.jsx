@@ -1,7 +1,3 @@
-// import React, {useEffect} from 'react';
-// import CardList from './cards/CardList';
-// import LoanList from './loans/LoanList';
-// import {insertLoan, fetchLoans} from './loans/LoanService';
 import { BrowserRouter, Routes, Route} from "react-router-dom";
 
 import Home from './Home';

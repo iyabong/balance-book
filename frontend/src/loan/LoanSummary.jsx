@@ -1,22 +1,37 @@
-import { Link } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import { getAllUsers, getBalanceByUser} from './LoanService';
 
-export default function LoanSummary() {
-    // 예시 데이터
-    const borrowers = [
-        { id: '1', name: '김철수'},
-        { id: '2', name: '이영희'}
-    ];
+const LoanSummary = () => {
+    const [usersWithBalance, setUsersWithBalance] = useState([]);
+
+    useEffect(() => {
+        const fetch = async() => {
+            const users = await getAllUsers();
+            console.log('[users]', users); 
+            const enriched = await Promise.all(
+                users.map(async (user) => {
+                    const balance = await getBalanceByUser(user.id);
+                    return { ...user, balance};
+                })
+            );
+            console.log('[usersWithBalance]', enriched); //
+            setUsersWithBalance(enriched);
+        };
+        fetch();
+    }, []);
 
     return (
         <div>
-            <h1>대출 요약</h1>
+            <h1>대출 사용자 목록</h1>
             <ul>
-                {borrowers.map(b => (
-                    <li key={b.id}>
-                        <Link to={`/loan/${b.id}`}>{b.name}</Link>
+                {usersWithBalance.map((user) => (
+                    <li key={user.id}>
+                        {user.name} - 남은 금액: {user.balance}
                     </li>
                 ))}
             </ul>
         </div>
     );
-}
+};
+
+export default LoanSummary;
