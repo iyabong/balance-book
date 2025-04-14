@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { getAllUsers, getBalanceByUser} from './LoanService';
+import { Link } from 'react-router-dom';
 
 const LoanSummary = () => {
     const [usersWithBalance, setUsersWithBalance] = useState([]);
@@ -7,14 +8,12 @@ const LoanSummary = () => {
     useEffect(() => {
         const fetch = async() => {
             const users = await getAllUsers();
-            console.log('[users]', users); 
-            const enriched = await Promise.all(
+            const enriched = await Promise.all( 
                 users.map(async (user) => {
                     const balance = await getBalanceByUser(user.id);
                     return { ...user, balance};
                 })
             );
-            console.log('[usersWithBalance]', enriched); //
             setUsersWithBalance(enriched);
         };
         fetch();
@@ -22,11 +21,12 @@ const LoanSummary = () => {
 
     return (
         <div>
-            <h1>대출 사용자 목록</h1>
+            <h1>대출자 목록</h1>
             <ul>
                 {usersWithBalance.map((user) => (
                     <li key={user.id}>
                         {user.name} - 남은 금액: {user.balance}
+                        {" "}<Link to={`./${user.id}`}>이력 보기</Link>
                     </li>
                 ))}
             </ul>

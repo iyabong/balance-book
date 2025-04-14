@@ -12,7 +12,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/card" element={<CardSummary />} />
         <Route path="/loan" element={<LoanSummary />} />
-        <Route path="/loan/:borrowerId" element={<BorrowerHistory />} />
+        <Route path="/loan/:userId" element={<BorrowerHistory />} />
       </Routes>
     </BrowserRouter>
   )
