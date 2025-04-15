@@ -35,6 +35,7 @@ export const getBalanceByUser = async(userId) => {
     return loan - repayment; 
 }
 
+// 사용자별 거래내역 조회
 export const getTransactionsByUser = async (userId) => {
     const {data, error} = await supabase
                                     .from('transactions')
@@ -44,3 +45,18 @@ export const getTransactionsByUser = async (userId) => {
     if (error) throw error;
     return data;
 };
+
+// 거래 추가(대출/상환)
+export async function insertTransaction(userId, amount, type) {
+    const {data, error} = await supabase
+                                .from('transactions')
+                                .insert([
+                                    {
+                                        user_id: userId,
+                                        amount,
+                                        type,
+                                    },
+                                ]);
+    if (error) throw error;
+    return data;
+}
