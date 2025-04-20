@@ -14,4 +14,4 @@ COPY --from=build /out .
 ENV ASPNETCORE_URLS=http://+:$PORT
 EXPOSE 80
 
-ENTRYPOINT ["dotnet", "./BalanceBook.CardApi.dll"]
+ENTRYPOINT ["dotnet", "BalanceBook.CardApi.dll"]
