@@ -1,6 +1,6 @@
-@BalanceBook.CardApi_HostAddress = http://localhost:5259
+@BalanceBook_CardApi_HostAddress = http://localhost:5259
 
-GET {{BalanceBook.CardApi_HostAddress}}/weatherforecast/
+GET {{BalanceBook_CardApi_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
