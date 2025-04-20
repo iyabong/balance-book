@@ -4,7 +4,7 @@ WORKDIR /src
 
 COPY . ./
 WORKDIR /src/BalanceBook.CardApi
-RUN dotnet publish BalanceBook.CardApi.csproj -c Release -o out
+RUN dotnet publish BalanceBook.CardApi.csproj -c Release -o /out
 
 # Runtime stage
 FROM mcr.microsoft.com/dotnet/aspnet:9.0
