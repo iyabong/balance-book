@@ -1,8 +1,9 @@
 # Build stage
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-WORKDIR /app
+WORKDIR /src
 
 COPY . ./
+WORKDIR /src/BalanceBook.CardApi
 RUN dotnet publish BalanceBook.CardApi.csproj -c Release -o out
 
 # Runtime stage
