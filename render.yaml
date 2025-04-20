@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: balancebook-cardapi
+    env: docker
+    plan: free
+    branch: main
+    rootDir: backend/BalanceBook.CardApi
