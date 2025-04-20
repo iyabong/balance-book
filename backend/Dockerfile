@@ -2,16 +2,19 @@
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
+# 현재 backend/ 기준에서 전체 복사
 COPY . ./
+
+# 프로젝트 폴더로 이동
 WORKDIR /src/BalanceBook.CardApi
-RUN dotnet publish BalanceBook.CardApi.csproj -c Release -o /out && ls -al /out
+
+# publish
+RUN dotnet publish -c Release -o /out
 
 # Runtime stage
 FROM mcr.microsoft.com/dotnet/aspnet:9.0
 WORKDIR /app
 COPY --from=build /out .
 
-ENV ASPNETCORE_URLS=http://+:$PORT
-EXPOSE 80
-
-ENTRYPOINT ["dotnet", "/app/BalanceBook.CardApi.dll"]
+# ENTRYPOINT 수정: 절대경로도 OK
+ENTRYPOINT ["dotnet", "BalanceBook.CardApi.dll"]
