@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using BalanceBook.CardApi.Services;
+using BalanceBook.CardApi.Models;
 
 namespace BalanceBook.CardApi.Controllers
 {
@@ -6,10 +8,18 @@ namespace BalanceBook.CardApi.Controllers
     [Route("api/[controller]")]
     public class CardController : ControllerBase
     {
-        [HttpGet]
-        public ActionResult<string> Get()
+        private readonly ICardService _cardService;
+
+        public CardController(ICardService cardService)
         {
-            return Ok("CardController is working!");
+            _cardService = cardService;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<CardDto>>> Get()
+        {
+            var cards = await _cardService.GetAllAsync();
+            return Ok(cards);
         }
     }
 }
