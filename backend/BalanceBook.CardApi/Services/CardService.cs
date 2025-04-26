@@ -1,32 +1,44 @@
 using BalanceBook.CardApi.Models;
+using Supabase;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace BalanceBook.CardApi.Services;
 
 public class CardService : ICardService
 {
-    private readonly List<CardDto> _cards = new()
-    {
-        new CardDto(Guid.NewGuid(), "1234", "user-1", "카드 A", 0),
-        new CardDto(Guid.NewGuid(), "5678", "user-2", "카드 B", 0)
-    };
-     
-    private readonly List<TransactionDto> _transactions = new()
-    {
-        new TransactionDto(Guid.Empty, "charge", 10000),
-        new TransactionDto(Guid.Empty, "payment", 10000),
-        new TransactionDto(Guid.Empty, "charge", 10000),
-    };
 
-    public Task<IEnumerable<CardDto>> GetAllAsync()
+    public async Task<IEnumerable<CardResponseDto>> GetAllAsync()
     {
-        var result = _cards.Select(card =>
+        var client = await SupabaseClientFactory.GetClientAsync();
+
+        // cards 테이블에서 모든 카드 가져오기
+        var cardResponse = await client.From<CardDto>().Get();
+        var cards = cardResponse.Models;
+
+        // transactions 테이블에서 모든 거래 내역 가져오기
+        var transactionResponse = await client.From<TransactionDto>().Get();
+        var transactions = transactionResponse.Models;
+
+        // 각 카드의 잔액 계산
+        var result = cards.Select(card =>
         {
-            var balance = _transactions
+            var balance = transactions
                             .Where(t => t.CardId == card.Id)
                             .Sum(t => t.Type == "payment" ? -t.Amount : t.Amount);
-            return card with { Balance = balance};
+            
+            return new CardResponseDto
+            {
+                Id = card.Id,
+                CardNo = card.CardNo,
+                Name = card.Name,
+                CreatedAt = card.CreatedAt,
+                Balance = balance
+            };
         });
 
-        return Task.FromResult(result);
+        return result;
     }
 }

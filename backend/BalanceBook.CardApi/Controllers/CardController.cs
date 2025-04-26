@@ -16,7 +16,7 @@ namespace BalanceBook.CardApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CardDto>>> Get()
+        public async Task<ActionResult<IEnumerable<CardResponseDto>>> Get()
         {
             var cards = await _cardService.GetAllAsync();
             return Ok(cards);

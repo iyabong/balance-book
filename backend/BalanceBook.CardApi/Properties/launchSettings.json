@@ -7,7 +7,9 @@
       "launchBrowser": false,
       "applicationUrl": "http://localhost:5259",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "SUPABASE_URL": "https://upjplafvpukgjwtrvsho.supabase.co",
+        "SUPABASE_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVwanBsYWZ2cHVrZ2p3dHJ2c2hvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM4MTc3OTUsImV4cCI6MjA1OTM5Mzc5NX0.QOgBDc6oFe8OycmNtuoFl-UrBlB9LVT218vJFg1TXI4"
       }
     },
     "https": {
@@ -16,7 +18,9 @@
       "launchBrowser": false,
       "applicationUrl": "https://localhost:7004;http://localhost:5259",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "SUPABASE_URL": "https://upjplafvpukgjwtrvsho.supabase.co",
+        "SUPABASE_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVwanBsYWZ2cHVrZ2p3dHJ2c2hvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM4MTc3OTUsImV4cCI6MjA1OTM5Mzc5NX0.QOgBDc6oFe8OycmNtuoFl-UrBlB9LVT218vJFg1TXI4"
       }
     }
   }
