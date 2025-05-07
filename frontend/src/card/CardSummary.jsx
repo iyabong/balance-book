@@ -4,6 +4,7 @@ import { getAllCards } from './CardService';
 
 const CardList = () => {
   const [cards, setCards] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetch = async() => {
@@ -12,6 +13,8 @@ const CardList = () => {
         setCards(data);
       }catch(error) {
         console.error('카드 가져오기 실패');
+      }finally {
+        setLoading(false);
       }
     };
     fetch();
@@ -24,6 +27,15 @@ const CardList = () => {
             : card
     );
       setCards(updated);
+  }
+
+  if (loading) {
+    return (
+      <div style={{textAlign: 'center', padding: '2rem'}}>
+        <div className='spinner'></div>
+        <p>불러오는 중...</p>
+      </div>
+    )
   }
 
   return (
