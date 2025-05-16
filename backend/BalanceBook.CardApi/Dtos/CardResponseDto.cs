@@ -1,4 +1,4 @@
-namespace BalanceBook.CardApi.Models;
+namespace BalanceBook.CardApi.Dtos;
 
 public class CardResponseDto
 {

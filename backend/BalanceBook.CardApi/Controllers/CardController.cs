@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using BalanceBook.CardApi.Services;
-using BalanceBook.CardApi.Models;
+using BalanceBook.CardApi.Dtos;
 
 namespace BalanceBook.CardApi.Controllers
 {
@@ -20,6 +20,20 @@ namespace BalanceBook.CardApi.Controllers
         {
             var cards = await _cardService.GetAllAsync();
             return Ok(cards);
+        }
+
+        [HttpPost("transaction")]
+        public async Task<ActionResult> ProcessTransaction([FromBody] CardTransactionDto request)
+        {
+            try
+            {
+                var updatedCard = await _cardService.ProcessTransactionAsync(request);
+                return Ok(updatedCard);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

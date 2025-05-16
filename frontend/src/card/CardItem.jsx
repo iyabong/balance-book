@@ -9,12 +9,11 @@ const CardItem = ({ card, onPay}) => {
   // 결제 금액 확인되면 부모에게 알림
   const handleConfirm = (amount) => {
       onPay(card.id, amount); // 카드id와 금액 전달
-      setShowForm(false);   // 폼 닫기
   };
 
   return (
       <div className="card-item">
-        <h3>카드명: {card.name} - 잔액: {card.balance}원</h3>
+        <h3>카드명: {card.name}, 잔액: {card.balance}원</h3>
         <button onClick={() => setShowForm(isShow => !isShow)}>
           {showForm ? '사용폼 닫기' : '사용폼 열기'}
         </button>

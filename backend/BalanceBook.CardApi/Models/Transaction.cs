@@ -5,13 +5,13 @@ using System;
 namespace BalanceBook.CardApi.Models
 {
     [Table("transactions")]
-    public class TransactionDto : BaseModel
+    public class Transaction : BaseModel
     {
         [PrimaryKey("id", false)]
         public Guid Id { get; set; }
 
         [Column("user_id")]
-        public string UserId { get; set; } = "";
+        public Guid? UserId { get; set; }
 
         [Column("type")]
         public string Type { get; set; } = "";

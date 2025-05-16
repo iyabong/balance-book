@@ -1,11 +1,10 @@
 using Supabase.Postgrest.Models;
 using Supabase.Postgrest.Attributes;
-using System;
 
 namespace BalanceBook.CardApi.Models
 {
     [Table("cards")]
-    public class CardDto : BaseModel
+    public class Card : BaseModel
     {
         [PrimaryKey("id", false)]
         public Guid Id { get; set; }
