@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
 import PaymentForm from './PaymentForm';
+import CardHistory from './CardHistory';
 
 const CardItem = ({ card, onPay}) => {
   const [showForm, setShowForm] = useState(false);
+  const [showHistory, setShowHistory] = useState(false);
 
   // 결제 금액 확인되면 부모에게 알림
   const handleConfirm = (amount) => {
@@ -12,17 +14,27 @@ const CardItem = ({ card, onPay}) => {
 
   return (
       <div className="card-item">
-      <h3>카드명: {card.name}</h3>
-      <p>잔액: {card.balance}원</p>
-      <button onClick={() => setShowForm(true)}>사용</button>
-      <button onClick={() => alert("이력 버튼 클릭")}>이력</button>
+        <h3>카드명: {card.name} - 잔액: {card.balance}원</h3>
+        <button onClick={() => setShowForm(isShow => !isShow)}>
+          {showForm ? '사용폼 닫기' : '사용폼 열기'}
+        </button>
+        &nbsp;  
+        <button onClick={() => setShowHistory(isShow => !isShow)}>
+          {showHistory ? '이력 닫기' : '이력 열기'}
+        </button>
 
-      {showForm && (
-        <PaymentForm
-          onConfirm={handleConfirm}
-          onCancel={() => setShowForm(false)}
-        />
-      )}
+        {showForm && (
+          <PaymentForm
+            onConfirm={handleConfirm}
+            onCancel={() => setShowForm(false)}
+          />
+        )}
+
+        {showHistory && (
+          <CardHistory history={card.history} />
+        )}
+        <br/>
+        <br/>
     </div>
   );
 };

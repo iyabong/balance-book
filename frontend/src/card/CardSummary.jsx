@@ -10,7 +10,17 @@ const CardList = () => {
     const fetch = async() => {
       try {
         const data = await getAllCards();
-        setCards(data);
+
+        // TEMP
+        const enriched = data.map(c => ({
+          ...c, // 기존 필드 유지
+          history: [
+            {type: 'charge', amount: 10, date: '2025-05-01'},
+            {type: 'payment', amount: 1.2, date: '2025-05-02'}
+          ]
+        }))
+
+        setCards(enriched);
       }catch(error) {
         console.error('카드 가져오기 실패');
       }finally {
