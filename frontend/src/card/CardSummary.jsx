@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import CardItem from './CardItem';
 import { getAllCards } from './CardService';
+import { insertTransaction } from './CardService';
 
 const CardList = () => {
   const [cards, setCards] = useState([]);
@@ -30,13 +31,17 @@ const CardList = () => {
     fetch();
   },[]);
 
-  const handlePay = (cardId, amount) => {
-    const updated = cards.map((card) =>
-      card.id === cardId 
-            ? { ...card, balance: card.balance - amount} 
-            : card
-    );
-      setCards(updated);
+  const handlePay = async (cardId, amount) => {
+    try {
+      const updatedCard = await insertTransaction(cardId, amount, 'payment');
+
+      const updated = cards.map((c) =>
+        c.id === cardId ? { ...updatedCard, history: c.history} : c
+      );
+      setCards(updated)
+    }catch (err) {
+      alert(err.message);
+    }
   }
 
   if (loading) {

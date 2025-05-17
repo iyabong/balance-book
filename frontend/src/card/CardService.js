@@ -9,3 +9,24 @@ export const getAllCards = async() => {
     }
     return await res.json();
 }
+
+export const insertTransaction =  async(cardId, amount, type) => {
+    const res = await fetch(`${API_BASE}/api/card/transaction`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            cardId,
+            amount,
+            type // "charge", "payment"
+        })
+    });
+
+    if (!res.ok) {
+        const text = await res.text();
+        throw new Error("충전/결제 실패: " + text)
+    }
+
+    return await res.json(); // 갱신된 정보 반환
+};
