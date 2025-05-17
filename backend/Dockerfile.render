@@ -1,11 +1,11 @@
-# Dockerfile for railway
+# Dockerfile for render
 
 # Build stage
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# 프로젝트 root 기준에서 복사
-COPY backend/ ./
+# 현재 backend/ 기준에서 전체 복사
+COPY . ./
 
 # 프로젝트 폴더로 이동
 WORKDIR /src/BalanceBook.CardApi
