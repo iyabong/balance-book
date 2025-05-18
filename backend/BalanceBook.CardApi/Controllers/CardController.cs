@@ -22,6 +22,13 @@ namespace BalanceBook.CardApi.Controllers
             return Ok(cards);
         }
 
+        [HttpGet("history/{cardId}")] 
+        public async Task<ActionResult<IEnumerable<CardHistoryResponseDto>>> GetCardHistories(Guid cardId)
+        {
+            var histories = await _cardService.GetCardHistoriesAsync(cardId);
+            return Ok(histories);
+        }        
+
         [HttpPost("transaction")]
         public async Task<ActionResult> ProcessTransaction([FromBody] CardTransactionDto request)
         {

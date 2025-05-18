@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import CardItem from './CardItem';
-import { getAllCards } from './CardService';
+import { getAllCards, getCardHistory } from './CardService';
 import { insertTransaction } from './CardService';
 
 const CardList = () => {
@@ -13,13 +13,25 @@ const CardList = () => {
         const data = await getAllCards();
 
         // TEMP
-        const enriched = data.map(c => ({
-          ...c, // 기존 필드 유지
-          history: [
-            {type: 'charge', amount: 10, date: '2025-05-01'},
-            {type: 'payment', amount: 1.2, date: '2025-05-02'}
-          ]
-        }))
+        // const enriched = data.map(c => ({
+        //   ...c, // 기존 필드 유지
+        //   history: [
+        //     {type: 'charge', amount: 10, date: '2025-05-01'},
+        //     {type: 'payment', amount: 1.2, date: '2025-05-02'}
+        //   ]
+        // }))
+        const enriched = await Promise.all(
+          data.map(async (card) => {
+            try {
+              const history = await getCardHistory(card.id);
+              console.log(history);
+              return {...card, history};
+            }catch(err) {
+              console.warn(`카드 ${card.id} 이력 불러오기 실패`, err);
+              return { ...card, history: []};
+            }
+          })
+        );
 
         setCards(enriched);
       }catch(error) {

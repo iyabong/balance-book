@@ -11,7 +11,7 @@ const CardHistory = ({history}) => {
       <ul>
         {history.map((item, idx) => (
           <li key={idx}>
-            [{item.date}] {item.type === 'charge' ? '충전' : '결제'} - {item.amount}원
+            [{item.createdAt}] {item.type === 'charge' ? '충전' : '결제'} - {item.amount}원
           </li>
         ))}
       </ul>

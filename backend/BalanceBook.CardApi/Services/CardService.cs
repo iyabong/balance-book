@@ -1,6 +1,5 @@
 using BalanceBook.CardApi.Models;
 using BalanceBook.CardApi.Dtos;
-using System.Text.Json;
 
 namespace BalanceBook.CardApi.Services;
 
@@ -37,6 +36,23 @@ public class CardService : ICardService
         });
 
         return result;
+    }
+
+     public async Task<IEnumerable<CardHistoryResponseDto>> GetCardHistoriesAsync(Guid cardId)
+    {
+        var client = await SupabaseClientFactory.GetClientAsync();
+
+        var result = await client.From<Transaction>()
+                                 .Where(t => t.CardId == cardId)
+                                 .Order(t => t.CreatedAt, Supabase.Postgrest.Constants.Ordering.Descending)
+                                 .Get();
+
+        return result.Models.Select(t => new CardHistoryResponseDto
+        {
+            Type = t.Type,
+            Amount = t.Amount,
+            CreatedAt = t.CreatedAt
+        });
     }
 
     public async Task<CardResponseDto> ProcessTransactionAsync(CardTransactionDto request)

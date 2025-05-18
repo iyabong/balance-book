@@ -10,6 +10,14 @@ export const getAllCards = async() => {
     return await res.json();
 }
 
+export const getCardHistory = async(cardId) => {
+    const res = await fetch(`${API_BASE}/api/card/history/${cardId}`);
+    if (!res.ok) {
+        throw new Error('카드 충전/결제 이력 불러오기 실패');
+    }
+    return await res.json();
+}
+
 export const insertTransaction =  async(cardId, amount, type) => {
     const res = await fetch(`${API_BASE}/api/card/transaction`, {
         method: 'POST',
