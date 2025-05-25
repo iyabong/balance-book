@@ -3,17 +3,19 @@ import {Link } from 'react-router-dom';
 
 const Home = ()  => (
   <div style={{ maxWidth: 400, margin: '2rem auto', textAlign: 'center' }}>
+    
+    <img src="./balance-book-favicon.ico" alt="balance-book-favicon" />   
     <h1>Balance Book</h1>
 
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '2rem' }}>
       <Link to="/login">
-        <button style={{ width: '100%', padding: '0.75rem' }}>로그인</button>
+        <button style={{ width: '90%', padding: '0.75rem' }}>로그인</button>
       </Link>
       <Link to="/card">
-        <button style={{ width: '100%', padding: '0.75rem' }}>카드 현황</button>
+        <button style={{ width: '90%', padding: '0.75rem' }}>카드 현황</button>
       </Link>
       <Link to="/loan">
-        <button style={{ width: '100%', padding: '0.75rem' }}>대출 현황</button>
+        <button style={{ width: '90%', padding: '0.75rem' }}>대출 현황</button>
       </Link>
     </div>
 
