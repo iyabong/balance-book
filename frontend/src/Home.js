@@ -4,7 +4,9 @@ import {Link } from 'react-router-dom';
 const Home = ()  => (
   <div style={{ maxWidth: 400, margin: '2rem auto', textAlign: 'center' }}>
     
-    <img src="./balance-book-favicon.ico" alt="balance-book-favicon" />   
+    <img src="./balance-book-favicon-vector.svg" alt="balance-book-favicon-vector" 
+      style={{ width: '6em', height: '6em'}}
+    />   
     <h1>Balance Book</h1>
 
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '2rem' }}>
