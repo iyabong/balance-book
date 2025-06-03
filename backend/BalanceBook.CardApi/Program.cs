@@ -20,8 +20,7 @@ builder.Services.AddCors(options =>
         policy =>
         {
             policy.WithOrigins("http://localhost:3000"
-                              ,"https://balance-book.vercel.app"
-                              ,"https://balancebook-cardapi-production.up.railway.app/api/card")
+                              ,"https://balance-book.vercel.app")
                     .AllowAnyHeader()
                     .AllowAnyMethod();
         });
