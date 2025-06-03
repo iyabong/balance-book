@@ -1,6 +1,6 @@
 import './App.css'; 
 
-import { BrowserRouter, Routes, Route, Link} from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, useNavigate} from "react-router-dom";
 import { useEffect, useState} from 'react';
 import supabase from './supabase';
 
@@ -11,8 +11,17 @@ import LoanSummary from './loan/LoanSummary';
 
 // Header 컴포넌트를 통해 로그인 상태 및 로그아웃 표시
 function Header({user}) {
+  const navigate = useNavigate();
+  
   const handleLogout = async() => {
-    await supabase.auth.signOut();
+    const { error } = await supabase.auth.signOut();
+    
+    if (error) {
+      console.log('로그아웃 중 에러');
+      return;
+    }
+    
+    navigate('/');
   }
 
   return (
@@ -51,9 +60,10 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Header user={user} />>
+      <Header user={user} />
       <Routes>
         <Route path="/" element={<Home user={user}/>} />
+        <Route path="/login" element={<Login />} />     
         <Route path="/card" element={<CardSummary user={user}/>} />
         <Route path="/loan" element={<LoanSummary user={user}/>} />
       </Routes>
