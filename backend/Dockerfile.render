@@ -8,7 +8,7 @@ WORKDIR /src
 COPY . ./
 
 # 프로젝트 폴더로 이동
-WORKDIR /src/BalanceBook.CardApi
+WORKDIR /src/BalanceBook
 
 # publish
 RUN dotnet publish -c Release -o /out
@@ -19,4 +19,4 @@ WORKDIR /app
 COPY --from=build /out .
 
 # ENTRYPOINT 수정: 절대경로도 OK
-ENTRYPOINT ["dotnet", "BalanceBook.CardApi.dll"]
+ENTRYPOINT ["dotnet", "BalanceBook.dll"]

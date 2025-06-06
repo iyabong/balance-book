@@ -1,4 +1,4 @@
-using BalanceBook.CardApi.Services;
+using BalanceBook.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";

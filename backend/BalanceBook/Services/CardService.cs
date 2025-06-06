@@ -1,7 +1,7 @@
-using BalanceBook.CardApi.Models;
-using BalanceBook.CardApi.Dtos;
+using BalanceBook.Models;
+using BalanceBook.Dtos;
 
-namespace BalanceBook.CardApi.Services;
+namespace BalanceBook.Services;
 
 public class CardService : ICardService
 {

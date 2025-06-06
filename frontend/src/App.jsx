@@ -2,6 +2,7 @@ import './App.css';
 
 import { BrowserRouter, Routes, Route, Link, useNavigate} from "react-router-dom";
 import { useEffect, useState} from 'react';
+import { pickApiBase } from './card/CardService'; // 헬스체크 함수
 import supabase from './supabase';
 
 import Home from './Home';
@@ -9,7 +10,7 @@ import Login from './pages/Login';
 import CardSummary from './card/CardSummary';
 import LoanSummary from './loan/LoanSummary';
 
-// Header 컴포넌트를 통해 로그인 상태 및 로그아웃 표시
+// Header 컴포넌트
 function Header({user}) {
   const navigate = useNavigate();
   
@@ -43,20 +44,30 @@ function Header({user}) {
   );
 }
 
-// App 컴포넌트에서 로그인 상태 추적 및 페이지 렌더링
+/* App 컴포넌트 */
 function App() {
   const [user, setUser] = useState(null);
+  const [appReady, setAppReady] = useState(false);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data}) => {
-      setUser(data.session?.user ?? null );
-    });
-    const { data: listener} = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null)
-    });
-    return () => listener?.subscription.unsubscribe();
+    const init = async () => {
+      const baseReady = pickApiBase(); // 병렬 시작
+      const { data } = await supabase.auth.getSession();
+      setUser(data.session?.user ?? null);
+      await baseReady;
+      setAppReady(true);
+    };
 
+    init();
+
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => listener?.subscription.unsubscribe();
   }, []);
+
+  if (!appReady) return null; 
 
   return (
     <BrowserRouter>

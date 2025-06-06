@@ -1,40 +1,40 @@
-const API_BASE = process.env.NODE_ENV === 'development'
-               ? 'http://localhost:5000'
-               : process.env.REACT_APP_API_BASE_URL;
+const PRIMARY_BASE = process.env.REACT_APP_API_BASE_PRIMARY;
+const FALLBACK_BASE = process.env.REACT_APP_API_BASE_FALLBACK;
+
+let selectedBase = PRIMARY_BASE;
+
+export async function pickApiBase() {
+  try {
+    const res = await fetch(`${PRIMARY_BASE}/api/system/health`, {
+      cache: 'no-store',
+    });
+    if (!res.ok) throw new Error();
+    selectedBase = PRIMARY_BASE;
+  } catch {
+    console.warn('Primary Down됨. fallback으로 전환!');
+    selectedBase = FALLBACK_BASE;
+  }
+}
+
+// 공통로직 Wrapping
+async function fetchWithBase(path, options = {}) {
+  const res = await fetch(`${selectedBase}${path}`, options);
+  if (!res.ok) throw new Error(`API 호출 실패: ${path}`);
+  return await res.json();
+}
 
 export const getAllCards = async() => {
-    const res = await fetch(`${API_BASE}/api/card`);
-    if (!res.ok) {
-        throw new Error('카드 목록 불러오기 실패');
-    }
-    return await res.json();
+  return await fetchWithBase('/api/card');
 }
 
 export const getCardHistory = async(cardId) => {
-    const res = await fetch(`${API_BASE}/api/card/history/${cardId}`);
-    if (!res.ok) {
-        throw new Error('카드 충전/결제 이력 불러오기 실패');
-    }
-    return await res.json();
+    return await fetchWithBase(`/api/card/history/${cardId}`);
 }
 
 export const insertTransaction =  async(cardId, amount, type) => {
-    const res = await fetch(`${API_BASE}/api/card/transaction`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            cardId,
-            amount,
-            type // "charge", "payment"
-        })
-    });
-
-    if (!res.ok) {
-        const text = await res.text();
-        throw new Error("충전/결제 실패: " + text)
-    }
-
-    return await res.json(); // 갱신된 정보 반환
+  return await fetchWithBase('/api/card/transaction', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ cardId, amount, type }),
+  });    
 };

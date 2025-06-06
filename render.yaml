@@ -4,4 +4,4 @@ services:
     env: docker
     plan: free
     branch: main
-    rootDir: backend/BalanceBook.CardApi
+    rootDir: backend/BalanceBook

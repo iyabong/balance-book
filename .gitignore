@@ -32,7 +32,7 @@ yarn-error.log*
 /backend/**/.vscode/
 /backend/**/.idea/
 /backend/**/*.secrets.json
-/backend/BalanceBook.CardApi.http
+/backend/BalanceBook.http
 
 #############################################
 # 🧪 테스트/캐시

@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using BalanceBook.CardApi.Services;
-using BalanceBook.CardApi.Dtos;
+using BalanceBook.Services;
+using BalanceBook.Dtos;
 
-namespace BalanceBook.CardApi.Controllers
+namespace BalanceBook.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

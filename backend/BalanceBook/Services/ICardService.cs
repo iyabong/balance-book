@@ -1,6 +1,6 @@
-using BalanceBook.CardApi.Dtos;
+using BalanceBook.Dtos;
 
-namespace BalanceBook.CardApi.Services;
+namespace BalanceBook.Services;
 
 public interface ICardService
 {

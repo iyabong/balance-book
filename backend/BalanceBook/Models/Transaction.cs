@@ -2,7 +2,7 @@ using Supabase.Postgrest.Models;
 using Supabase.Postgrest.Attributes;
 using System;
 
-namespace BalanceBook.CardApi.Models
+namespace BalanceBook.Models
 {
     [Table("transactions")]
     public class Transaction : BaseModel

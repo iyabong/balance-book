@@ -1,4 +1,4 @@
-namespace BalanceBook.CardApi.Dtos;
+namespace BalanceBook.Dtos;
 
 public class CardTransactionDto
 {
