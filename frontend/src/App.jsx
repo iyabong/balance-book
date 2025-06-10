@@ -9,6 +9,7 @@ import Home from './Home';
 import Login from './pages/Login';
 import CardSummary from './card/CardSummary';
 import LoanSummary from './loan/LoanSummary';
+import BorrowerHistory from './loan/BorrowerHistory';
 
 // Header 컴포넌트
 function Header({user}) {
@@ -77,6 +78,7 @@ function App() {
         <Route path="/login" element={<Login />} />     
         <Route path="/card" element={<CardSummary user={user}/>} />
         <Route path="/loan" element={<LoanSummary user={user}/>} />
+        <Route path="/loan/:userId" element={<BorrowerHistory />} /> 
       </Routes>
     </BrowserRouter>
   )
