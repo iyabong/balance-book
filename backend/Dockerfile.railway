@@ -22,7 +22,7 @@ COPY --from=build /out .
 
 # entrypoint.sh 복사 + unzip 설치 + 권한
 COPY entrypoint.sh .
-RUN apt-get update && apt-get install -y unzip && chmod +x entrypoint.sh
+RUN apt-get update && apt-get install -y unzip curl && chmod +x entrypoint.sh
 
 # ENTRYPOINT 수정: 절대경로도 OK
 ENTRYPOINT ["./entrypoint.sh"]
