@@ -4,26 +4,21 @@ using Microsoft.EntityFrameworkCore;
 using Oracle.ManagedDataAccess.Client;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-var Wdir = builder.Configuration["Oracle:Wdir"];
+var user = Environment.GetEnvironmentVariable("DBS");
+var pw = Environment.GetEnvironmentVariable("DBP");
+var dataSource = builder.Configuration.GetConnectionString("dataSource");
+var connectionString = $"User Id={user};Password={pw};Data Source={dataSource};Connection Timeout=30;";
 
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-
-// 포트 설정 (Render 대비)
+// 포트 설정
 var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
 builder.WebHost.UseUrls($"http://*:{port}");
-
-// 서비스 등록
 builder.Services.AddScoped<ICardService, CardService>();
 builder.Services.AddScoped<IRoutineService, RoutineService>();
 
-// ✅ Oracle Wallet 위치 지정 (최상단)
-OracleConfiguration.TnsAdmin = Wdir;
+// // ✅ EF Core에 Oracle 연결 등록 & // ✅ Oracle Wallet 위치 지정
+builder.Services.AddDbContext<BalanceBookContext>(options => options.UseOracle(connectionString));
+OracleConfiguration.TnsAdmin = builder.Configuration["Oracle:Wdir"];
 OracleConfiguration.WalletLocation = OracleConfiguration.TnsAdmin;
-
-// // ✅ EF Core에 Oracle 연결 등록
-builder.Services.AddDbContext<BalanceBookContext>(options =>
-    options.UseOracle(connectionString));
 
 using (OracleConnection con = new OracleConnection(connectionString))
 {
@@ -47,6 +42,7 @@ using (OracleConnection con = new OracleConnection(connectionString))
     }
 }
 
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 // 📦 API 기본 서비스 추가
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
