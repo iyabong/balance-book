@@ -16,7 +16,13 @@ RUN dotnet publish -c Release -o /out
 # Runtime stage
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
+
+# publish 결과 복사
 COPY --from=build /out .
 
+# entrypoint.sh 복사 + unzip 설치 + 권한
+COPY entrypoint.sh .
+RUN apt-get update && apt-get install -y unzip && chmod +x entrypoint.sh
+
 # ENTRYPOINT 수정: 절대경로도 OK
-ENTRYPOINT ["dotnet", "BalanceBook.dll"]
+ENTRYPOINT ["./entrypoint.sh"]

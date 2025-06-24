@@ -12,17 +12,13 @@ namespace BalanceBook.Data.Context
 
         public DbSet<CalendarDate> CalendarDates { get; set; }
         public DbSet<RoutineCheck> RoutineChecks { get; set; }
+        public DbSet<UserRoutine> UserRoutines { get; set; }
+
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            // CalendarDate와 RoutineCheck 간의 관계 설정
-            modelBuilder.Entity<CalendarDate>()
-                .HasMany(c => c.RoutineChecks)
-                .WithOne()
-                .HasForeignKey("CALENDAR_DATE")
-                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 } 

@@ -12,37 +12,37 @@ namespace BalanceBook.Models
         public int Id { get; set; }
 
         [Column("CHECK_TIME")]
-        public DateTime? CheckTime { get; set; }
+        public DateTime CheckTime { get; set; }
 
         [Required]
         [Column("TEMPLATE_ID")]
         [StringLength(10)]
-        public string TemplateId { get; set; }
+        public string? TemplateId { get; set; }
 
         [Column("TEMPLATE_TYPE")]
         [StringLength(20)]
-        public string TemplateType { get; set; }
+        public string? TemplateType { get; set; }
 
         [Column("STATUS")]
         [StringLength(20)]
-        public string Status { get; set; }
+        public string? Status { get; set; }
 
         [Column("REMARK")]
         [StringLength(400)]
-        public string Remark { get; set; }
+        public string? Remark { get; set; }
 
         [Column("CREATED_AT")]
-        public DateTime CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
 
         [Column("CREATED_BY")]
         [StringLength(36)]
-        public string CreatedBy { get; set; }
+        public string? CreatedBy { get; set; }
 
         [Column("UPDATED_AT")]
         public DateTime? UpdatedAt { get; set; }
 
         [Column("UPDATED_BY")]
         [StringLength(36)]
-        public string UpdatedBy { get; set; }
+        public string? UpdatedBy { get; set; }
     }
 }
