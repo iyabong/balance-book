@@ -1,4 +1,4 @@
-# Dockerfile for render
+# Dockerfile for Render
 
 # Build stage
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
@@ -16,7 +16,13 @@ RUN dotnet publish -c Release -o /out
 # Runtime stage
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
+
+# publish 결과 복사
 COPY --from=build /out .
 
-# ENTRYPOINT 수정: 절대경로도 OK
-ENTRYPOINT ["dotnet", "BalanceBook.dll"]
+# entrypoint_render.sh 복사 + unzip 설치 + 권한
+COPY entrypoint_render.sh .
+RUN chmod +x entrypoint_render.sh
+
+# ENTRYPOINT
+ENTRYPOINT ["./entrypoint_render.sh"]
