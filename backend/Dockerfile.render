@@ -17,12 +17,15 @@ RUN dotnet publish -c Release -o /out
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 
-# publish 결과 복사
-COPY --from=build /out .
+# 필수 도구 설치 (unzip, curl, wget)
+RUN apt-get update && apt-get install -y unzip curl wget
 
 # entrypoint_render.sh 복사 + unzip 설치 + 권한
 COPY entrypoint_render.sh .
 RUN chmod +x entrypoint_render.sh
+
+# publish 결과 복사
+COPY --from=build /out .
 
 # ENTRYPOINT
 ENTRYPOINT ["./entrypoint_render.sh"]
