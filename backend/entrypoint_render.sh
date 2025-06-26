@@ -2,7 +2,7 @@
 
 echo "📦 [Render] OCI Wallet 복원 중..."
 base64 -d /etc/secrets/Wallet_A_b64.txt > /app/wallet.zip
-unzip /etc/secrets/wallet.zip -d /app/wallet
+unzip /app/wallet.zip -d /app/wallet
 
 echo "📁 wallet 폴더 목록:"
 ls -l /app/wallet
