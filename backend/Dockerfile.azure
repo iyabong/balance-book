@@ -1,0 +1,39 @@
+# Dockerfile for Azure
+
+# ----------------------------
+# 🔨 Build stage
+# ----------------------------
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
+
+# 현재 backend/ 기준에서 전체 복사
+COPY . ./
+
+# 프로젝트 루트폴더로 이동
+WORKDIR /src/BalanceBook
+
+# 프로젝트 빌드 및 publish
+RUN dotnet publish -c Release -o /out
+
+# Runtime stage
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
+WORKDIR /app
+
+# publish 결과 복사
+COPY --from=build /out .
+
+# 필수 도구 설치 + 포트 공개
+RUN apt-get update && \
+    apt-get install -y unzip curl && \
+    rm -rf /var/lib/apt/lists/*
+EXPOSE 80
+
+# 앱 복사
+COPY --from=build /out .
+
+# 엔트리포인트 쉘 복사 및 실행 권한 부여
+COPY entrypoint_azure.sh .
+RUN chmod +x entrypoint_azure.sh
+
+# 컨테이너 시작
+ENTRYPOINT ["./entrypoint_azure.sh"]

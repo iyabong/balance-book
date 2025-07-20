@@ -1,0 +1,62 @@
+.routine-check-calendar {
+    padding: 20px;
+}
+
+.routine-check-calendar h2 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+}
+
+.calendar-day {
+    border: 1px solid #ddd;
+    padding: 10px;
+    min-height: 100px;
+}
+
+.date-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.date {
+    font-weight: bold;
+}
+
+.day-of-week {
+    color: #666;
+}
+
+.routine-checks {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.routine-check {
+    padding: 5px;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+}
+
+.status {
+    font-size: 0.9em;
+}
+
+.status.completed {
+    color: #28a745;
+}
+
+.status.incomplete {
+    color: #dc3545;
+}
+
+.status.pending {
+    color: #ffc107;
+} 

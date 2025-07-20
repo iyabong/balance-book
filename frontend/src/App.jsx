@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import CardSummary from './card/CardSummary';
 import LoanSummary from './loan/LoanSummary';
 import BorrowerHistory from './loan/BorrowerHistory';
+import RoutineCalendar from './routine/RoutineCalendar';
 
 // Header 컴포넌트
 function Header({user}) {
@@ -29,7 +30,7 @@ function Header({user}) {
   return (
     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: 10 }}>
       <div>
-        <Link to="/">홈</Link> | <Link to="/card">카드</Link> | <Link to="/loan">대출</Link>
+        <Link to="/">홈</Link> {/*| <Link to="/routine">루틴</Link>*/} | <Link to="/card">카드</Link> | <Link to="/loan">대출</Link>
       </div>
       <div>
         {user ? (
@@ -76,6 +77,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home user={user}/>} />
         <Route path="/login" element={<Login />} />     
+        <Route path="/routine" element={<RoutineCalendar />} />
         <Route path="/card" element={<CardSummary user={user}/>} />
         <Route path="/loan" element={<LoanSummary user={user}/>} />
         <Route path="/loan/:userId" element={<BorrowerHistory />} /> 
