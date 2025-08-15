@@ -41,3 +41,47 @@ yarn-error.log*
 .vscode-test/
 .eslintcache
 .prettiercache
+/build/
+#############################################
+# 🖥 Visual Studio 공통
+#############################################
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sdf
+*.db
+*.opendb
+*.cache
+
+#############################################
+# 🌸 Spring/Eclipse
+#############################################
+/spring/.classpath
+/spring/.project
+/spring/.settings/
+/spring/target/
+/spring/bin/
+
+#############################################
+# 📦 Nexacro
+#############################################
+/nexacro/BalanceBook/_resource_/
+/nexacro/BalanceBook/_web/
+/spring/WebContent/nexacro/BalanceBook/_web/
+/spring/WebContent/nexacro/BalanceBook/_resource_/
+/nexacro/BalanceBook/_xcss_/
+/nexacro/BalanceBook/_theme_/
+
+#############################################
+# 💾 IDE 인덱스 / AI 캐시
+#############################################
+/**/CopilotIndices/
+/**/FileContentIndex/
+/**/*.vsidx
+
+# Nexacro 자동 생성 파일
+**/$Geninfo$.geninfo
+
+# 로컬 개발 환경 설정
+/backend/BalanceBook/appsettings.Development.json
