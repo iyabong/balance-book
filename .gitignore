@@ -12,40 +12,27 @@ Thumbs.db
 # 📦 Node.js / React (frontend)
 #############################################
 /frontend/node_modules/
-/frontend/.pnp
-/frontend/.pnp.js
+/frontend/.pnp*
 /frontend/coverage/
 /frontend/build/
-frontend/.env*
+/frontend/.env*                   # 환경 변수 파일
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
 #############################################
-# 💻 .NET (backend)
+# 💻 .NET / Blazor (backend, blazor)
 #############################################
+# 빌드 출력물
 /backend/**/bin/
 /backend/**/obj/
-/backend/.vs/
-/backend/**/*.user
-/backend/**/*.suo
-/backend/**/.vscode/
-/backend/**/.idea/
-/backend/**/*.secrets.json
-/backend/BalanceBook.http
+/blazor/**/bin/
+/blazor/**/obj/
 
-#############################################
-# 🧪 테스트/캐시
-#############################################
-/**/TestResults/
-.vscode-test/
-.eslintcache
-.prettiercache
-/build/
-#############################################
-# 🖥 Visual Studio 공통
-#############################################
+# IDE / 사용자 환경
 .vs/
+.vscode/
+.idea/
 *.suo
 *.user
 *.userosscache
@@ -53,9 +40,22 @@ yarn-error.log*
 *.db
 *.opendb
 *.cache
+*.secrets.json
+
+# 로컬 전용 설정
+/backend/BalanceBook.http
+/backend/BalanceBook/appsettings.Development.json
 
 #############################################
-# 🌸 Spring/Eclipse
+# 🧪 테스트 / 캐시
+#############################################
+/**/TestResults/
+.vscode-test/
+.eslintcache
+.prettiercache
+
+#############################################
+# 🌸 Spring / Eclipse
 #############################################
 /spring/.classpath
 /spring/.project
@@ -68,10 +68,13 @@ yarn-error.log*
 #############################################
 /nexacro/BalanceBook/_resource_/
 /nexacro/BalanceBook/_web/
-/spring/WebContent/nexacro/BalanceBook/_web/
-/spring/WebContent/nexacro/BalanceBook/_resource_/
 /nexacro/BalanceBook/_xcss_/
 /nexacro/BalanceBook/_theme_/
+/spring/WebContent/nexacro/BalanceBook/_web/
+/spring/WebContent/nexacro/BalanceBook/_resource_/
+
+# Nexacro 자동 생성 파일
+**/$Geninfo$.geninfo
 
 #############################################
 # 💾 IDE 인덱스 / AI 캐시
@@ -80,8 +83,26 @@ yarn-error.log*
 /**/FileContentIndex/
 /**/*.vsidx
 
-# Nexacro 자동 생성 파일
-**/$Geninfo$.geninfo
+#############################################
+# 🎯 Blazor 정적 산출물 다이어트 (Vercel 배포)
+#############################################
+# frontend/public/resume는 유지하되, 불필요한 파일 제외
 
-# 로컬 개발 환경 설정
-/backend/BalanceBook/appsettings.Development.json
+# 1) 사전 압축본 (.br/.gz) 제외
+/frontend/public/resume/**/*.br
+/frontend/public/resume/**/*.gz
+
+# 2) 소스맵 제외
+/frontend/public/resume/**/*.map
+
+# 3) 샘플 데이터 제외
+/frontend/public/resume/sample-data/
+
+# 4) Bootstrap: 최소셋만 유지
+/frontend/public/resume/lib/bootstrap/dist/css/*
+!frontend/public/resume/lib/bootstrap/dist/css/bootstrap.min.css
+/frontend/public/resume/lib/bootstrap/dist/js/*
+!frontend/public/resume/lib/bootstrap/dist/js/bootstrap.bundle.min.js
+
+# 5) PDB 심볼(혹시 포함될 경우)
+/frontend/public/resume/**/*.pdb

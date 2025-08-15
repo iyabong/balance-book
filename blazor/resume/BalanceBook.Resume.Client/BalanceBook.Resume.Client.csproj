@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+	<StaticWebAssetBasePath>resume</StaticWebAssetBasePath>	  
+  </PropertyGroup>
+
+	<!--<Target Name="CopyIndexTo404" AfterTargets="Publish" Condition="Exists('$(PublishDir)index.html')">
+		<Copy SourceFiles="$(PublishDir)index.html"
+			  DestinationFiles="$(PublishDir)404.html" />
+	</Target>-->
+
+	
+	
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.0.5" PrivateAssets="all" />
+  </ItemGroup>
+
+</Project>
