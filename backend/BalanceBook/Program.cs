@@ -52,10 +52,15 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowSpecificOrigins,
         policy =>
         {
-            policy.WithOrigins("http://localhost:3000"
-                              ,"https://balance-book.vercel.app")
-                    .AllowAnyHeader()
-                    .AllowAnyMethod();
+            policy
+                .SetIsOriginAllowed(origin =>
+                    origin == "http://localhost:3000"
+                    || origin == "https://balance-book.vercel.app"
+                    || origin.EndsWith(".balance-book.vercel.app")
+                    || origin.EndsWith(".iyabongs-projects.vercel.app")
+                )
+                .AllowAnyHeader()
+                .AllowAnyMethod();
         });
 });
 
