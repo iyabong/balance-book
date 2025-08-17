@@ -55,9 +55,9 @@ builder.Services.AddCors(options =>
             policy
                 .SetIsOriginAllowed(origin =>
                     origin == "http://localhost:3000"
-                    || origin == "https://balance-book.vercel.app"
-                    || origin.EndsWith(".balance-book.vercel.app")
-                    || origin.EndsWith(".iyabongs-projects.vercel.app")
+                    || origin == "https://balance-book.vercel.app"          // prod
+                    || origin == "https://dev-balance-book.vercel.app"      // ✅ dev 고정 도메인 추가
+                    || origin.EndsWith("-iyabongs-projects.vercel.app")     // ✅ 프리뷰 해시 도메인 패턴 수정
                 )
                 .AllowAnyHeader()
                 .AllowAnyMethod();
