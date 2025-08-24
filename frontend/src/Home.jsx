@@ -24,7 +24,7 @@ const Home = ({user})  => (
       <Link to="/loan">
         <button style={{ width: '90%', padding: '0.75rem' }}>대출 현황</button>
       </Link>
-      <a href="/resume/index.html">
+      <a href="/resume">
         <button style={{ width: '90%', padding: '0.75rem' }}>이력 관리</button>
       </a>   
     </div>
