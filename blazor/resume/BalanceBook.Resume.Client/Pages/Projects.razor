@@ -1,0 +1,33 @@
+﻿@page "/projects"
+@inject IProjectService ProjectService
+@inject NavigationManager Nav
+@using BalanceBook.Resume.Client.Models
+@using BalanceBook.Resume.Client.Services
+
+<h3>Projects (@items.Count)</h3>
+<p>
+    <button class="btn btn-link p-0"
+            @onclick='() => Nav.NavigateTo("projects/new")'>
+        +추가
+    </button>
+</p>
+<ul>
+    @foreach (var p in items)
+    {
+        <li>
+            <b>@p.Name</b> - @p.Role / @p.Company (@p.Client)<br />
+            <div>
+                @p.StartDate.ToString("yyyy-MM-dd")
+                @(" ~ ")
+                @((p.EndDate.HasValue ?p.EndDate.Value.ToString("yyyy-MM-dd") : "진행중"))
+            </div>
+        </li>
+    }
+</ul>
+
+@code {
+    private List<Project> items = new();
+
+    protected override async Task OnInitializedAsync()
+    => items = await ProjectService.GetAllAsync();
+}
