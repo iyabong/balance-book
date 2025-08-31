@@ -46,6 +46,13 @@ function Header({user}) {
   );
 }
 
+function RedirectToResume() {
+  useEffect(() => {
+    window.location.assign("/resume/index.html"); // 정적 파일로 강제 이동
+  }, []);
+  return null;
+}
+
 /* App 컴포넌트 */
 function App() {
   const [user, setUser] = useState(null);
@@ -81,6 +88,11 @@ function App() {
         <Route path="/card" element={<CardSummary user={user}/>} />
         <Route path="/loan" element={<LoanSummary user={user}/>} />
         <Route path="/loan/:userId" element={<BorrowerHistory />} /> 
+
+      {/* ⬇️ dev에서만 리다이렉트 (원하면 조건 제거해도 됨) */}
+      {process.env.NODE_ENV === "development" && (
+        <Route path="/resume/*" element={<RedirectToResume />} />
+      )}        
       </Routes>
     </BrowserRouter>
   )

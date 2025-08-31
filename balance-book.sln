@@ -6,6 +6,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "backend", "backend", "{1AE8
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BalanceBook", "backend\BalanceBook\BalanceBook.csproj", "{2BCD3453-31B4-E8D5-B18A-49009C1DA9FF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BalanceBook.Resume.Client", "blazor\resume\BalanceBook.Resume.Client\BalanceBook.Resume.Client.csproj", "{232AB857-9C6D-45DE-9882-734CCB91B598}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -16,6 +18,10 @@ Global
 		{2BCD3453-31B4-E8D5-B18A-49009C1DA9FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2BCD3453-31B4-E8D5-B18A-49009C1DA9FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2BCD3453-31B4-E8D5-B18A-49009C1DA9FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{232AB857-9C6D-45DE-9882-734CCB91B598}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{232AB857-9C6D-45DE-9882-734CCB91B598}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{232AB857-9C6D-45DE-9882-734CCB91B598}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{232AB857-9C6D-45DE-9882-734CCB91B598}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

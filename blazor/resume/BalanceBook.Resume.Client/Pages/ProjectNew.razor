@@ -1,0 +1,30 @@
+﻿@page "/projects/new"
+@inject IProjectService ProjectService
+@inject NavigationManager Nav
+@using BalanceBook.Resume.Client.Models
+@using BalanceBook.Resume.Client.Services
+
+<h3>ProjectNew</h3>
+
+<EditForm Model="model" OnValidSubmit="Save">
+    <InputText @bind-Value="model.Name" placeholder="프로젝트명" /><br />
+    <InputText @bind-value="model.Client" placeholder="고객사" /><br />
+    <InputText @bind-value="model.Company" placeholder="소속사" /><br />
+    <InputText @bind-value="model.Role" placeholder="역할" /><br />
+    <InputText @bind-value="model.Description" placeholder="내용" /><br />
+    <InputDate @bind-value="model.StartDate" placeholder="투입일자"/>
+    <InputDate @bind-value="model.EndDate" placeholder="철수일자" />
+    <br />
+    <button type="submit">저장</button>
+    <button type="button" @onclick="Cancel">취소</button>
+</EditForm>
+
+@code {
+    private Project model = new();
+    private async Task Save()
+    {
+        await ProjectService.CreateAsync(model);
+        Nav.NavigateTo("projects");
+    }
+    private void Cancel() => Nav.NavigateTo("projects");
+}
