@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, Link, useNavigate} from "react-router-dom
 import { useEffect, useState} from 'react';
 import { pickApiBase } from './card/CardService'; // 헬스체크 함수
 import supabase from './supabase';
+import { setFavicon } from "./utils/env";
 
 import Home from './Home';
 import Login from './pages/Login';
@@ -59,6 +60,8 @@ function App() {
   const [appReady, setAppReady] = useState(false);
 
   useEffect(() => {
+    setFavicon();
+    
     const init = async () => {
       const baseReady = pickApiBase(); // 병렬 시작
       const { data } = await supabase.auth.getSession();

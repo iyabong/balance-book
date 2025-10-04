@@ -1,10 +1,14 @@
 import React from 'react';
 import {Link } from 'react-router-dom';
+import { getNodeEnv } from './utils/env';
+
+const walletLogo = getNodeEnv() === 'production' ? '/wallet.svg' : '/wallet_dev.svg';
+
 
 const Home = ({user})  => (
   <div style={{ maxWidth: 400, margin: '2rem auto', textAlign: 'center' }}>
     
-    <img src="./wallet.svg" alt="wallet" 
+    <img src={walletLogo} alt="wallet" 
       style={{ width: '6em', height: '6em'}}
     />   
     <h1>Balance Book</h1>
