@@ -1,8 +1,9 @@
 import React from 'react';
 import {Link } from 'react-router-dom';
 import { getNodeEnv } from './utils/env';
+import { getVercelEnv } from './utils/env';
 
-const walletLogo = getNodeEnv() === 'production' ? '/wallet.svg' : '/wallet_dev.svg';
+const walletLogo = getNodeEnv() === "production" && getVercelEnv() === 'production' ? '/wallet.svg' : '/wallet_dev.svg';
 
 
 const Home = ({user})  => (
