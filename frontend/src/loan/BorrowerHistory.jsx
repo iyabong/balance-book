@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import { useParams } from "react-router-dom";
 import { getTransactionsByUser, insertTransaction } from './LoanService';
 
@@ -7,19 +7,14 @@ const BorrowerHistory = () => {
     const [ transactions, setTransactions ] = useState([]);
     const [ amount, setAmount] = useState('');
 
-    const fetchTransactions = async() => {
+    const fetchTransactions = useCallback(async () => {
         const data = await getTransactionsByUser(userId);
         setTransactions(data);
-    };
+    }, [userId]);
 
     useEffect(() => {
-        // const fetch = async() => {
-        //     const data = await getTransactionsByUser(userId);
-        //     setTransactions(data);
-        // };
-        // fetch();
         fetchTransactions();
-    }, [userId]);
+    }, [fetchTransactions]);
 
     const handleAction = async (type) => {
         if (!amount) return;
