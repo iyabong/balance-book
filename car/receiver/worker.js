@@ -1,6 +1,13 @@
-// /**
-//  * Torque Pro 데이터 수신용 Cloudflare Worker
-//  */
+/**
+ * Torque Pro 데이터 수신용 Cloudflare Worker
+ * 
+ * [Secret 세팅]
+ * 1. 설정 파일 생성 - wrangler.toml
+ * 2. npx wrangler login
+ * 3. npx wrangler secret put UPSTASH_URL
+ * 4. npx wrangler secret put UPSTASH_TOKEN
+ * 5. npx wrangler deploy
+ */
 
 export default {
   async fetch(request, env, ctx) {
