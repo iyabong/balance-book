@@ -35,7 +35,7 @@ export default {
     };
 
     // 3. Upstash로 전송 (REST API 사용)
-    const response = await fetch(UPSTASH_URL, {
+    const response = await fetch(UPSTASH_URL + '/lpush/car:logs', {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${UPSTASH_TOKEN}`,
