@@ -19,35 +19,54 @@ export default {
     const UPSTASH_URL = env.UPSTASH_URL;
     const UPSTASH_TOKEN = env.UPSTASH_TOKEN;
 
+    const sessionKST = getFormattedKst(parseInt(params.session));
+    const torqueKST = getFormattedKst(parseInt(params.time));
+    const workerKST = getFormattedKst(Date.now());
+
     // 2. 데이터 가공 (PID 매핑)
     const cleanData = {
-      recordedAt: params.time,                       // 실제 주행 시간 (Main)
-      receivedAt: Date.now(),                        // 서버 도착 시간 (Debug)
-      sessionId: params.session || "unknown", 
-      email: params.eml,
-      
+      sessionTime: sessionKST,                        // KEY
+      torqueTime: torqueKST,                          // TORQUE API CALL TIME
+      workerTime : workerKST,                         // CLOUD WORKER RECEIVE TIME
+
       rpm: parseFloat(params.kc),                     // Engine RPM
       speed: parseFloat(params.kff100),               // Vehicle Speed
       lat: parseFloat(params.kff1006),                // Latitude
       lon: parseFloat(params.kff1005),                // Longitude
       
-      raw: params // for debugging
+      url: request.url // for debugging
     };
 
-    // 3. Upstash로 전송 (REST API 사용)
-    const response = await fetch(UPSTASH_URL + '/lpush/car:logs', {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${UPSTASH_TOKEN}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(cleanData)
-    });
 
-    if (response.ok) {
-      return new Response("OK!", { status: 200 });
-    } else {
-      return new Response("Redis Error", { status: 500 });
-    }
+    const headers = {
+      "Authorization": `Bearer ${UPSTASH_TOKEN}`,
+      "Content-Type": "application/json"
+    };
+
+      try {
+        const res = await fetch(`${UPSTASH_URL}/pipeline`, {
+          method: "POST",
+          headers,
+          body: JSON.stringify([
+            ["RPUSH", "car:logs", JSON.stringify(cleanData)],
+            ["HSET", "car:session", "sessionTime", sessionKST, "workerTime", workerKST]
+          ])
+        });
+
+        if (res.ok) {
+          return new Response("OK!", { status: 200 });
+        } else {
+          const errorText = await res.text();
+          return new Response(`에러 발생!\n${errorText}`, { status: 500 });
+        }
+      } catch (error) {
+        return new Response("Worker Error", { status: 500 });
+      }
   },
-};
+}; 
+
+function getFormattedKst(timestamp) {
+  const dt = new Date(timestamp);
+  dt.setHours(dt.getHours() + 9);
+  return dt.toISOString().replace(/[-T:.Z]/g, "").slice(0, 14);
+}
